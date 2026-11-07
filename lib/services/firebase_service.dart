@@ -1,15 +1,18 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import '../models/movie_model.dart';
+
+import '../models/movie.dart';
 
 class FirebaseService {
-  final FirebaseFirestore _firestore = FirebaseFirestore.instance;
+  FirebaseService({FirebaseFirestore? firestore})
+    : _firestore = firestore ?? FirebaseFirestore.instance;
 
-  // دالة جلب الأفلام لتستخدمها صفحة 
+  final FirebaseFirestore _firestore;
+
   Stream<List<Movie>> getMoviesStream() {
     return _firestore.collection('movies').snapshots().map((snapshot) {
-      return snapshot.docs.map((doc) {
-        return Movie.fromMap(doc.data());
-      }).toList();
+      return snapshot.docs
+          .map((document) => Movie.fromMap(document.data(), id: document.id))
+          .toList(growable: false);
     });
   }
 }
