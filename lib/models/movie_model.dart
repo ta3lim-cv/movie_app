@@ -5,6 +5,7 @@ class Movie {
   final String imageUrl;
   final String overview;
 
+// Movie model properties
   Movie({
     required this.title,
     required this.genre,
@@ -13,8 +14,8 @@ class Movie {
     required this.overview,
   });
 
-  // دالة لتحويل بيانات الفايربيس Map إلى كوكب Movie برمجيا
-  factory Movie.fromMap(Map<String, dynamic> map) {
+// Factory to convert Firebase Map data to a Movie object
+factory Movie.fromMap(Map<String, dynamic> map) {
     return Movie(
       title: map['title'] ?? '',
       genre: map['genre'] ?? '',
