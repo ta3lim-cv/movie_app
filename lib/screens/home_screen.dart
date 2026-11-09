@@ -3,12 +3,12 @@ import 'package:flutter/material.dart';
 import '../models/movie_model.dart';
 import '../services/firebase_service.dart';
 
-const Color _background = Color(0xFFF6F4FA);
-const Color _primary = Color(0xFF7456A6);
-const Color _accent = Color(0xFFE978A0);
-const Color _textColor = Color(0xFF29243D);
-const Color _mutedColor = Color(0xFF827B92);
-const Color _ratingColor = Color(0xFFFFB84D);
+const Color _background = Color(0xFF141414);
+const Color _primary = Color(0xFFFFC107);
+const Color _accent = Color(0xFFFFC107);
+const Color _textColor = Colors.white;
+const Color _mutedColor = Color(0xFFB3B3B3);
+const Color _ratingColor = Color(0xFFFFC107);
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -32,7 +32,7 @@ class _HomeScreenState extends State<HomeScreen> {
       isScrollControlled: true,
       showDragHandle: true,
       useSafeArea: true,
-      backgroundColor: Colors.white,
+      backgroundColor: const Color(0xFF1F1F1F),
       shape: const RoundedRectangleBorder(
         borderRadius: BorderRadius.vertical(top: Radius.circular(28)),
       ),
@@ -110,7 +110,7 @@ class _HomeScreenState extends State<HomeScreen> {
       loadingBuilder: (context, child, progress) {
         if (progress == null) return child;
         return const ColoredBox(
-          color: Color(0xFFEDE7F6),
+          color: Color(0xFF2C2C2C),
           child: Center(
             child: CircularProgressIndicator(color: _primary, strokeWidth: 2),
           ),
@@ -133,7 +133,6 @@ class _HomeScreenState extends State<HomeScreen> {
             return CustomScrollView(
               slivers: [
                 const SliverToBoxAdapter(child: _Header()),
-                const SliverToBoxAdapter(child: _WelcomeBanner()),
                 if (snapshot.connectionState == ConnectionState.waiting)
                   const SliverFillRemaining(
                     hasScrollBody: false,
@@ -226,7 +225,7 @@ class MovieCard extends StatelessWidget {
     return SizedBox(
       width: 166,
       child: Material(
-        color: Colors.white,
+        color: const Color(0xFF222222),
         borderRadius: BorderRadius.circular(20),
         child: InkWell(
           onTap: onTap,
@@ -234,16 +233,9 @@ class MovieCard extends StatelessWidget {
           child: Ink(
             padding: const EdgeInsets.all(8),
             decoration: BoxDecoration(
-              color: Colors.white,
+              color: const Color(0xFF222222),
               borderRadius: BorderRadius.circular(20),
-              border: Border.all(color: const Color(0xFFECE7F3)),
-              boxShadow: const [
-                BoxShadow(
-                  color: Color(0x127456A6),
-                  blurRadius: 18,
-                  offset: Offset(0, 6),
-                ),
-              ],
+              border: Border.all(color: const Color(0xFF333333)),
             ),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -273,7 +265,7 @@ class MovieCard extends StatelessWidget {
                               vertical: 6,
                             ),
                             decoration: BoxDecoration(
-                              color: Colors.white,
+                              color: const Color(0xCC141414),
                               borderRadius: BorderRadius.circular(10),
                             ),
                             child: Row(
@@ -288,7 +280,7 @@ class MovieCard extends StatelessWidget {
                                 Text(
                                   movie.rating.toStringAsFixed(1),
                                   style: const TextStyle(
-                                    color: _textColor,
+                                    color: Colors.white,
                                     fontSize: 11,
                                     fontWeight: FontWeight.w800,
                                   ),
@@ -361,7 +353,6 @@ class _Header extends StatelessWidget {
               ],
             ),
           ),
-          Icon(Icons.auto_awesome_rounded, color: _accent, size: 24),
         ],
       ),
     );
@@ -377,60 +368,10 @@ class _HeaderIcon extends StatelessWidget {
       width: 46,
       height: 46,
       decoration: BoxDecoration(
-        color: const Color(0xFFEDE7F6),
+        color: const Color(0xFF222222),
         borderRadius: BorderRadius.circular(15),
       ),
       child: const Icon(Icons.movie_filter_rounded, color: _primary, size: 25),
-    );
-  }
-}
-
-class _WelcomeBanner extends StatelessWidget {
-  const _WelcomeBanner();
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      margin: const EdgeInsets.fromLTRB(22, 0, 22, 25),
-      padding: const EdgeInsets.all(20),
-      decoration: BoxDecoration(
-        gradient: const LinearGradient(
-          begin: Alignment.topLeft,
-          end: Alignment.bottomRight,
-          colors: [Color(0xFFECE4F8), Color(0xFFFCEAF1)],
-        ),
-        borderRadius: BorderRadius.circular(20),
-      ),
-      child: const Row(
-        children: [
-          Expanded(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  'What will you watch today?',
-                  style: TextStyle(
-                    color: _textColor,
-                    fontSize: 17,
-                    fontWeight: FontWeight.w800,
-                  ),
-                ),
-                SizedBox(height: 7),
-                Text(
-                  'Explore exciting stories and find a movie you will love.',
-                  style: TextStyle(
-                    color: _mutedColor,
-                    fontSize: 12,
-                    height: 1.5,
-                  ),
-                ),
-              ],
-            ),
-          ),
-          SizedBox(width: 12),
-          Icon(Icons.local_movies_rounded, size: 47, color: _primary),
-        ],
-      ),
     );
   }
 }
@@ -485,7 +426,7 @@ class _FeaturedMovie extends StatelessWidget {
       margin: const EdgeInsets.symmetric(horizontal: 22),
       clipBehavior: Clip.antiAlias,
       decoration: BoxDecoration(
-        color: const Color(0xFFEDE7F6),
+        color: const Color(0xFF222222),
         borderRadius: BorderRadius.circular(24),
       ),
       child: Stack(
@@ -499,8 +440,8 @@ class _FeaturedMovie extends StatelessWidget {
                 end: Alignment.bottomCenter,
                 colors: [
                   Colors.transparent,
-                  Color(0x3329243D),
-                  Color(0xE629243D),
+                  Color(0x66141414),
+                  Color(0xE6141414),
                 ],
                 stops: [0, 0.4, 1],
               ),
@@ -518,7 +459,7 @@ class _FeaturedMovie extends StatelessWidget {
               child: const Text(
                 'FEATURED',
                 style: TextStyle(
-                  color: Colors.white,
+                  color: Colors.black,
                   fontSize: 10,
                   fontWeight: FontWeight.w800,
                   letterSpacing: 1,
@@ -551,7 +492,7 @@ class _FeaturedMovie extends StatelessWidget {
                         movie.genre,
                         overflow: TextOverflow.ellipsis,
                         style: const TextStyle(
-                          color: Color(0xFFF2ECFA),
+                          color: Color(0xFFE5E5E5),
                           fontSize: 12,
                         ),
                       ),
@@ -559,7 +500,7 @@ class _FeaturedMovie extends StatelessWidget {
                     const SizedBox(width: 10),
                     const Icon(
                       Icons.star_rounded,
-                      color: Color(0xFFFFC46B),
+                      color: Color(0xFFFFC107),
                       size: 18,
                     ),
                     const SizedBox(width: 4),
@@ -578,8 +519,8 @@ class _FeaturedMovie extends StatelessWidget {
                   icon: const Icon(Icons.info_outline_rounded, size: 18),
                   label: const Text('Explore Movie'),
                   style: FilledButton.styleFrom(
-                    backgroundColor: Colors.white,
-                    foregroundColor: _primary,
+                    backgroundColor: _primary,
+                    foregroundColor: Colors.black,
                   ),
                 ),
               ],
@@ -602,7 +543,7 @@ class _InfoChip extends StatelessWidget {
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 11, vertical: 8),
       decoration: BoxDecoration(
-        color: const Color(0xFFF3EFF9),
+        color: const Color(0xFF2C2C2C),
         borderRadius: BorderRadius.circular(11),
       ),
       child: Row(
@@ -636,7 +577,7 @@ class _MoviePlaceholder extends StatelessWidget {
         gradient: LinearGradient(
           begin: Alignment.topLeft,
           end: Alignment.bottomRight,
-          colors: [Color(0xFF7456A6), Color(0xFF29243D)],
+          colors: [Color(0xFF2C2C2C), Color(0xFF141414)],
         ),
       ),
       child: Center(

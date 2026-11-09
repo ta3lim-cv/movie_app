@@ -1,27 +1,5 @@
 import 'package:flutter/material.dart';
 
-void main() => runApp(const MovieGenresApp());
-
-class MovieGenresApp extends StatelessWidget {
-  const MovieGenresApp({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Movie Genres',
-      debugShowCheckedModeBanner: false,
-      theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(
-          seedColor: const Color(0xffffb7d9),
-          brightness: Brightness.dark,
-        ),
-        useMaterial3: true,
-      ),
-      home: const MovieGenresPage(),
-    );
-  }
-}
-
 class Genre {
   const Genre(this.name, this.icon, this.color, this.movies);
 
@@ -32,65 +10,66 @@ class Genre {
 }
 
 const genres = [
-  Genre('Action', Icons.bolt, Color(0xffff9398), [
+  Genre('Action', Icons.bolt, Color.fromARGB(255, 255, 193, 7), [
     'Die Hard',
     'John Wick',
     'Mad Max: Fury Road',
   ]),
-  Genre('Comedy', Icons.sentiment_very_satisfied, Color(0xffedc87d), [
+  Genre('Comedy', Icons.sentiment_very_satisfied, Color.fromARGB(255, 255, 193, 7), [
     'The Hangover',
     'Superbad',
     'Mrs. Doubtfire',
   ]),
-  Genre('Drama', Icons.theater_comedy, Color(0xff9970b0), [
+  Genre('Drama', Icons.theater_comedy, Color.fromARGB(255, 255, 193, 7), [
     'The Shawshank Redemption',
     'Little Women',
     'The Godfather',
   ]),
-  Genre('Horror', Icons.nightlight_round, Color(0xff798bd7), [
+  Genre('Horror', Icons.nightlight_round, Color.fromARGB(255, 255, 193, 7), [
     'A Quiet Place',
     'Get Out',
     'The Conjuring',
   ]),
-  Genre('Sci-Fi', Icons.rocket_launch, Color(0xffafffb6), [
+  Genre('Sci-Fi', Icons.rocket_launch, Color.fromARGB(255, 255, 193, 7), [
     'Interstellar',
     'Arrival',
     'The Matrix',
   ]),
-  Genre('Animation', Icons.auto_awesome, Color(0xff9cdbe6), [
+  Genre('Animation', Icons.auto_awesome, Color.fromARGB(255, 255, 193, 7), [
     'Spirited Away',
     'Toy Story',
     'Finding Nemo',
   ]),
 ];
 
-class MovieGenresPage extends StatelessWidget {
-  const MovieGenresPage({super.key});
+class GenresScreen extends StatelessWidget {
+  const GenresScreen({super.key});
 
   void _showMovies(BuildContext context, Genre genre) {
     showDialog<void>(
       context: context,
       builder: (dialogContext) => AlertDialog(
-        icon: Icon(genre.icon, color: genre.color),
-        title: Text(genre.name),
+        backgroundColor: const Color.fromARGB(255, 34, 34, 34),
+        icon: Icon(genre.icon, color: const Color.fromARGB(255, 255, 193, 7)),
+        title: Text(genre.name, style: const TextStyle(color: Colors.white)),
         scrollable: true,
         content: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            const Text('Top 3 Movies'),
+            const Text('Top 3 Movies', style: TextStyle(color: Color.fromARGB(255, 170, 170, 170))),
             const SizedBox(height: 8),
             for (final movie in genre.movies)
               ListTile(
                 contentPadding: EdgeInsets.zero,
-                leading: const Icon(Icons.movie_outlined),
-                title: Text(movie),
+                leading: const Icon(Icons.movie_outlined, color: Color.fromARGB(255, 255, 193, 7)),
+                title: Text(movie, style: const TextStyle(color: Colors.white)),
               ),
           ],
         ),
         actions: [
           TextButton(
             onPressed: () => Navigator.of(dialogContext).pop(),
-            child: const Text('Close'),
+            child: const Text('Close', style: TextStyle(color: Color.fromARGB(255, 255, 193, 7))),
           ),
         ],
       ),
@@ -100,9 +79,12 @@ class MovieGenresPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: const Color.fromARGB(255, 20, 20, 20),
       appBar: AppBar(
-        title: const Text('Movie Genres'),
-        leading: const Icon(Icons.local_movies_outlined),
+        title: const Text('Movie Genres', style: TextStyle(color: Colors.white)),
+        leading: const Icon(Icons.local_movies_outlined, color: Color.fromARGB(255, 255, 193, 7)),
+        backgroundColor: const Color.fromARGB(255, 0, 0, 0),
+        iconTheme: const IconThemeData(color: Colors.white),
       ),
       body: SafeArea(
         child: Center(
@@ -113,10 +95,16 @@ class MovieGenresPage extends StatelessWidget {
               children: [
                 Text(
                   'Find your next movie',
-                  style: Theme.of(context).textTheme.headlineMedium,
+                  style: Theme.of(context).textTheme.headlineMedium?.copyWith(
+                        color: Colors.white,
+                        fontWeight: FontWeight.bold,
+                      ),
                 ),
                 const SizedBox(height: 8),
-                const Text('Tap a genre to see the top 3 movies.'),
+                const Text(
+                  'Tap a genre to see the top 3 movies.',
+                  style: TextStyle(color: Color.fromARGB(255, 170, 170, 170)),
+                ),
                 const SizedBox(height: 24),
                 LayoutBuilder(
                   builder: (context, constraints) {
@@ -136,7 +124,7 @@ class MovieGenresPage extends StatelessWidget {
                             width: cardWidth,
                             child: Card(
                               margin: EdgeInsets.zero,
-                              color: genre.color,
+                              color: const Color.fromARGB(255, 34, 34, 34),
                               clipBehavior: Clip.antiAlias,
                               child: InkWell(
                                 onTap: () => _showMovies(context, genre),
@@ -146,12 +134,12 @@ class MovieGenresPage extends StatelessWidget {
                                     crossAxisAlignment:
                                         CrossAxisAlignment.start,
                                     children: [
-                                      Icon(genre.icon, color: Colors.black87),
+                                      Icon(genre.icon, color: const Color.fromARGB(255, 255, 193, 7)),
                                       const SizedBox(height: 12),
                                       Text(
                                         genre.name,
                                         style: const TextStyle(
-                                          color: Colors.black87,
+                                          color: Colors.white,
                                           fontSize: 18,
                                           fontWeight: FontWeight.bold,
                                         ),
